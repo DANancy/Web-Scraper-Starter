@@ -1,4 +1,5 @@
 import sys
+import random
 import requests
 import re
 from pymongo import MongoClient
@@ -31,8 +32,9 @@ def api_call(page, starttime, endtime, h_dict, c_dict):
 def get_urls(starttime, endtime, h_dict, c_dict):
     pageNum = 1
     urllst = []
-    testTotal = 20
+    testTotal = 1000
     while True:
+        time.sleep(random.random())
         r = api_call(pageNum, starttime, endtime, h_dict, c_dict)
         totalPages = r['numPages']
         pageSize = r['pagesize']
@@ -49,8 +51,9 @@ def get_urls(starttime, endtime, h_dict, c_dict):
 
 def get_info(starttime, endtime, h_dict, c_dict, table):
     pageNum = 1
-    testTotal = 20
+    testTotal = 1000
     while True:
+        time.sleep(random.random())
         r = api_call(pageNum, starttime, endtime, h_dict, c_dict)
         totalPages = r['numPages']
         pageSize = r['pagesize']
@@ -140,9 +143,10 @@ if __name__ == "__main__":
         print("Unexpected error:", sys.exc_info())
 
     for u in urls:
+        count = 0
+        time.sleep(random.random())
         try:
             timestart = time.time()
-            count = 0
             count += get_danmaku(u, h_dict, c_dict, table_details)
             print("Insert {} danmakus with {} seconds ".format(count, (time.time() - timestart)))
         except OSError as err:

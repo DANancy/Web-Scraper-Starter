@@ -35,7 +35,7 @@ def get_item_urls(category_url, header, cookie):
         page = soup.find('a', class_='last-page')
 
         dic_urls.append(c)
-        if page != None:
+        if page:
             totalpages = int(soup.find('a', class_='last-page')['href'].split('=')[1])
             for i in range(totalpages - 1):
                 url = "{}?page={}".format(c, str(i + 2))
