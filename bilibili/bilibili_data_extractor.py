@@ -3,12 +3,12 @@ import random
 from datetime import datetime
 import re
 import requests
-from dotenv import load_dotenv
-import os
-from pathlib import Path
 from pymongo import MongoClient
 import sys
 import bilibili_helper as h
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
 def get_urls(starttime, endtime, h_dict, c_dict):
     pageNum = 1

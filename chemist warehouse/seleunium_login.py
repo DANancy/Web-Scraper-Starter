@@ -4,10 +4,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 import warnings
 
 warnings.filterwarnings('ignore')
-load_dotenv()
+env_path = Path('..') / '.env'
+load_dotenv(dotenv_path=env_path)
 
 url = 'https://www.chemistwarehouse.com.au/'
 browser = webdriver.Chrome()
