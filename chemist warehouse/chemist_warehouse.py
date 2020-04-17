@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from datetime import datetime
 from dotenv import load_dotenv
 import os
-
+from pathlib import Path
 
 def get_cookies(info):
     lines = info.split('; ')
@@ -79,7 +79,8 @@ def get_data(search_url, header, cookie, table):
 
 
 if __name__ == "__main__":
-    load_dotenv()
+    env_path = Path('..') / '.env'
+    load_dotenv(dotenv_path=env_path)
 
     base_url = 'https://www.chemistwarehouse.com.au/categories'
     headers = {
