@@ -113,7 +113,7 @@ if __name__ == "__main__":
         timestart = time.time()
         count = 0
         count += get_info(starttime, endtime, h_dict, c_dict, table_infos)
-        print("Insert {} videos with {} seconds ".format(count, (time.time() - timestart)))
+        print("Insert {} videos with {}s".format(count, (time.time() - timestart)))
     except OSError as err:
         print("OS error: {0}".format(err))
     except ValueError:
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         try:
             timestart = time.time()
             count += get_danmaku(u, h_dict, c_dict, table_details)
-            print("Insert {} danmakus with {} seconds ".format(count, (time.time() - timestart)))
+            print("Insert {} danmakus with {}s".format(count, (time.time() - timestart)))
         except OSError as err:
             print("OS error: {0}".format(err))
         except ValueError:
