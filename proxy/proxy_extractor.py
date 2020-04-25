@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# load .env variables
-from dotenv import load_dotenv
-import os
-from pathlib import Path
-
 # import scraper libs
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -22,6 +17,11 @@ from datetime import datetime
 import sys
 from pymongo import MongoClient
 
+# load .env variables
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
 # DB connection
 env_path = Path('..') / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -31,17 +31,19 @@ table = myClient['ProxyDB']['active_proxy']
 table_new = myClient['ProxyDB']['active_proxy']
 
 def proxies_extractor():
-    myProxy = "192.168.0.248:1080"
-    prox = Proxy()
-    prox.proxy_type = ProxyType.MANUAL
-    prox.socks_proxy = myProxy
-    prox.socks_version = 5
+    # if you need proxy, setup yourself following the below example
+    # myProxy = os.getenv("PROXYIP")
+    # prox = Proxy()
+    # prox.proxy_type = ProxyType.MANUAL
+    # prox.socks_proxy = myProxy
+    # prox.socks_version = os.getenv("SOCKETVERSION")
+    # capabilities = webdriver.DesiredCapabilities.CHROME
+    # prox.add_to_capabilities(capabilities)
+    # opts = Options()
+    # opts.add_argument("user-agent={}".format(ua['google chrome']))
+    # browser = webdriver.Chrome(desired_capabilities=capabilities, chrome_options=opts)
 
-    capabilities = webdriver.DesiredCapabilities.CHROME
-    prox.add_to_capabilities(capabilities)
-    opts = Options()
-    opts.add_argument("user-agent={}".format(ua['google chrome']))
-    browser = webdriver.Chrome(desired_capabilities=capabilities, chrome_options=opts)
+    browser = webdriver.Chrome()
     browser.get('http://freeproxylists.net')
 
     page = 1
