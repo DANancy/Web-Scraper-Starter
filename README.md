@@ -10,14 +10,14 @@ This is a web scrap project, built on top of Python and Mongodb.
 ```
 .
 ├── bilibili                   # Project files for bilibili 
-    ├── helper                 # customized molude
-    ├── data_extractor         # spider for bilibili
-    ├── data_cleaner           # data cleaning on MongoDB
-    ├── video_analysis         # dashboard built on Poltly & Dash
-    └── api_call_sample.json   # bilibili danmaku api call sample
+│   ├── helper                 # customized molude
+│   ├── data_extractor         # spider for bilibili
+│   ├── data_cleaner           # data cleaning on MongoDB
+│   ├── video_analysis         # dashboard built on Poltly & Dash
+│   └── api_call_sample.json   # bilibili danmaku api call sample
 ├── chemist_warehouse          # Project files for Chemist Warehouse
-    ├── data_extractor         # spider for chemist warehose
-    └── review_sample.json     # product review api call sample
+│   ├── data_extractor         # spider for chemist warehose
+│   └── review_sample.json     # product review api call sample
 ├── images                     # Images for architecture
 ├── proxy                      # Customized Proxy Pacakge
 ├── LICENSE
