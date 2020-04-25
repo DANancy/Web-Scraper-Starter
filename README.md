@@ -1,12 +1,12 @@
-# web-scraper-starter
+## web-scraper-starter
 
 This is a web scrap project, built on top of Python and Mongodb. 
 
-#### Existing Web Scrapers
+### Existing Web Scrapers
 1. [Bilibili](https://www.bilibili.com) (completed)
 2. [Chemist Warehouse](https://www.chemistwarehouse.com.au) (ongoing)
 
-#### File Strcutre
+### File Structure
 ```
 .
 ├── bilibili                   # Project files for bilibili 
@@ -27,10 +27,10 @@ This is a web scrap project, built on top of Python and Mongodb.
 └── README.md
 ```
 
-#### Scraper Architecture Diagram - Bilibili
+### Scraper Architecture Diagram - Bilibili
 ![Image of Diagram](images/bilibili_scraper_diagram.png)
 
-#### Bilibili Project Setup 
+### Bilibili Project Setup 
 1.Clone the whole project
 ```
 git clone https://github.com/gitnancy/web-scrapter-starter.git
@@ -64,8 +64,11 @@ python bilibili\bilibili_data_cleaner.py
 ```shell
 python bilibili\video_analysis.py
 ```
-#### Helpful Cheat Sheets & Tools
+### Helpful Cheat Sheets & Tools
 * [XPATH](https://devhints.io/xpath)
 * [REGEX](https://www.debuggex.com/cheatsheet/regex/python)
 * [Seleinum Extension for Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
 * [Search Engine for IoT](https://www.shodan.io/)
+
+### Credits
+* [Mutoo](https://github.com/mutoo) - Wash dishes and take care of baby while I am programming :D
