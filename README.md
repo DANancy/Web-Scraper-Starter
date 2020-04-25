@@ -18,9 +18,7 @@ git clone https://github.com/gitnancy/web-scrapter-starter.git
 ```shell
 pip install -r requirements.txt
 ```
-3.Install MongoDB: 
-
-https://www.mongodb.com/download-center/enterprise?tck=docs_server
+3.Install [MongoDB](https://www.mongodb.com/download-center/enterprise?tck=docs_server) & [Robo 3T](https://robomongo.org/): 
 
 4.Create .env File
 ```
@@ -41,3 +39,8 @@ python bilibili\bilibili_data_cleaner.py
 ```shell
 python bilibili\video_analysis.py
 ```
+#### Helpful Cheat Sheets & Tools
+* [XPATH](https://devhints.io/xpath)
+* [REGEX](https://www.debuggex.com/cheatsheet/regex/python)
+* [Seleinum Extension for Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
+* [Search Engine for IoT](https://www.shodan.io/)

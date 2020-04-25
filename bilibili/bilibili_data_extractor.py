@@ -1,32 +1,45 @@
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# load .env variables
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+# load libs
+import sys
 import time
 import random
 from datetime import datetime
 import re
 import requests
 from pymongo import MongoClient
-import sys
+
+# load self-defined modules
+from proxy.getProxy import get_proxy
 import bilibili_helper as h
-import os
-from dotenv import load_dotenv
-from pathlib import Path
+
 
 def get_urls(starttime, endtime, h_dict, c_dict):
     pageNum = 1
     urllst = []
     testTotal = 1000
-    while True:
-        time.sleep(random.random())
-        r = h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
-        totalPages = r['numPages']
-        pageSize = r['pagesize']
+    try:
+        while True:
+            time.sleep(random.random())
+            r=h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
+            totalPages = r['numPages']
+            pageSize = r['pagesize']
 
-        for j in range(pageSize):
-            url = r['result'][j]['arcurl']
-            urllst.append(url)
-        if (pageNum < min(totalPages, testTotal)):
-            pageNum += 1
-        else:
-            break
+            for j in range(pageSize):
+                url = r['result'][j]['arcurl']
+                urllst.append(url)
+            if (pageNum < min(totalPages, testTotal)):
+                pageNum += 1
+            else:
+                break
+    except ValueError as err:
+        print(err.args)
     return urllst
 
 def get_info(starttime, endtime, h_dict, c_dict, table):
