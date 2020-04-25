@@ -16,38 +16,35 @@ import requests
 from pymongo import MongoClient
 
 # load self-defined modules
-from proxy.getProxy import get_proxy
 import bilibili_helper as h
-
+import proxy.proxy_manager as PM
 
 def get_urls(starttime, endtime, h_dict, c_dict):
     pageNum = 1
     urllst = []
     testTotal = 1000
-    try:
-        while True:
-            time.sleep(random.random())
-            r=h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
-            totalPages = r['numPages']
-            pageSize = r['pagesize']
-
-            for j in range(pageSize):
-                url = r['result'][j]['arcurl']
-                urllst.append(url)
-            if (pageNum < min(totalPages, testTotal)):
-                pageNum += 1
-            else:
-                break
-    except ValueError as err:
-        print(err.args)
+    while True:
+        time.sleep(random.random())
+        r = h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
+        print(r)
+        totalPages = r['numPages']
+        pageSize = r['pagesize']
+        for j in range(pageSize):
+            url = r['result'][j]['arcurl']
+            urllst.append(url)
+        if (pageNum < min(totalPages, testTotal)):
+            pageNum += 1
+        else:
+            break
     return urllst
+
 
 def get_info(starttime, endtime, h_dict, c_dict, table):
     pageNum = 1
     testTotal = 1000
     while True:
         time.sleep(random.random())
-        r =  h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
+        r = h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
         totalPages = r['numPages']
         pageSize = r['pagesize']
         n = 0
@@ -81,8 +78,9 @@ def get_info(starttime, endtime, h_dict, c_dict, table):
 
 
 def get_danmaku(search_url, h_dict, c_dict, table):
-    r = requests.get(url=search_url, headers=h_dict, cookies=c_dict)
-    r.encoding = r.apparent_encoding
+    r = requests.get(url=search_url, headers=h_dict, cookies=c_dict, proxies=PM.myProxy.get_proxy())
+    if r == 200:
+        r.encoding = r.apparent_encoding
     cid = re.search(r'"cid":(\d*)', r.text).group(1)
     danmaku_url = "https://comment.bilibili.com/{}.xml".format(cid)
 
@@ -102,6 +100,7 @@ def get_danmaku(search_url, h_dict, c_dict, table):
         n += 1
     return n
 
+
 if __name__ == "__main__":
     env_path = Path('..') / '.env'
     load_dotenv(dotenv_path=env_path)
@@ -110,7 +109,8 @@ if __name__ == "__main__":
     endtime = input("End Time: ")
 
     url = "https://www.bilibili.com/v/douga/mad/?spm_id_from=333.5.b_646f7567615f6d6164.38#/all/click/0/1"
-    h_dict = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36'}
+    h_dict = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36'}
     cookies = os.getenv('BILICOOKIES')
 
     c_dict = h.get_cookies(cookies)
@@ -127,10 +127,10 @@ if __name__ == "__main__":
         count = 0
         count += get_info(starttime, endtime, h_dict, c_dict, table_infos)
         print("Insert {} videos with {}s".format(count, (time.time() - timestart)))
-    except OSError as err:
-        print("OS error: {0}".format(err))
-    except ValueError:
-        print("Could not convert data to an integer.")
+    except ValueError as err:
+        print(err)
+    except PM.NoProxyException as err:
+        print(err)
     except:
         print("Unexpected error:", sys.exc_info())
 
@@ -141,9 +141,9 @@ if __name__ == "__main__":
             timestart = time.time()
             count += get_danmaku(u, h_dict, c_dict, table_details)
             print("Insert {} danmakus with {}s".format(count, (time.time() - timestart)))
-        except OSError as err:
-            print("OS error: {0}".format(err))
-        except ValueError:
-            print("Could not convert data to an integer.")
+        except ValueError as err:
+            print(err)
+        except PM.NoProxyException as err:
+            print(err)
         except:
             print("Unexpected error:", sys.exc_info())

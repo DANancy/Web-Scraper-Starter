@@ -4,10 +4,15 @@
 
 # ! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+import sys
 
 import requests
-from proxy.getProxy import get_proxy
+from requests.exceptions import ProxyError
+import proxy.proxy_manager as PM
 
+from dotenv import load_dotenv
+import os
+from pathlib import Path
 
 def get_cookies(input):
     dic = {}
@@ -23,12 +28,16 @@ def api_call(page, starttime, endtime, h_dict, c_dict):
     search_url = "https://s.search.bilibili.com/cate/search?callback=jqueryCallback_bili_7977332783896514&main_ver=v3&search_type=video&view_type=hot_rank&order=click&copy_right=-1&cate_id=24&page={}&pagesize=2&time_from={}&time_to={}".format(
         page, starttime, endtime)
 
+    r = proxy_call(search_url, h_dict, c_dict)
+    return r.json()
+
+def proxy_call(url,h_dict,c_dict):
     while True:
-        proxy = get_proxy('ProxyDB', 'active_proxy')
-        if proxy is None:
-            break
-        r = requests.get(url=search_url, headers=h_dict, cookies=c_dict, proxies=proxy)
-        if r == 200:
-            r.encoding = r.apparent_encoding
-            return r.json()
-    raise ValueError('No Available Proxy')
+        try:
+            r = requests.get(url=url, headers=h_dict, cookies=c_dict, proxies=PM.myProxy.get_proxy())
+            if r.status_code == 200:
+                return r
+            else:
+                PM.myProxy.invalid_proxy()
+        except ProxyError:
+            PM.myProxy.invalid_proxy()
