@@ -16,7 +16,7 @@ import requests
 from pymongo import MongoClient
 
 # load self-defined modules
-import bilibili_helper as h
+import bilibili.helper as h
 import proxy.proxy_manager as PM
 
 def get_urls(starttime, endtime, h_dict, c_dict):

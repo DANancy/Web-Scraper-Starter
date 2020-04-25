@@ -10,10 +10,6 @@ import requests
 from requests.exceptions import ProxyError
 import proxy.proxy_manager as PM
 
-from dotenv import load_dotenv
-import os
-from pathlib import Path
-
 def get_cookies(input):
     dic = {}
     cookies = input.split('; ')
@@ -38,6 +34,7 @@ def proxy_call(url,h_dict,c_dict):
             if r.status_code == 200:
                 return r
             else:
+                print("Invalid Proxy: {}".format(r.status_code))
                 PM.myProxy.invalid_proxy()
         except ProxyError:
             PM.myProxy.invalid_proxy()
