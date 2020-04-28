@@ -26,7 +26,7 @@ def get_urls(starttime, endtime, h_dict, c_dict):
     while True:
         time.sleep(random.random())
         r = h.api_call(pageNum, starttime, endtime, h_dict, c_dict)
-        print(r)
+        # print(r)
         totalPages = r['numPages']
         pageSize = r['pagesize']
         for j in range(pageSize):

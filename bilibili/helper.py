@@ -1,10 +1,9 @@
-# import pandas
-# print(pandas.__file__)
-# save this module to the package folder
-
 # ! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
+
+# import pandas
+# print(pandas.__file__)
+# copy this module to the package folder
 
 import requests
 from requests.exceptions import ProxyError
@@ -30,11 +29,14 @@ def api_call(page, starttime, endtime, h_dict, c_dict):
 def proxy_call(url,h_dict,c_dict):
     while True:
         try:
+            print("Loading {}".format(url))
             r = requests.get(url=url, headers=h_dict, cookies=c_dict, proxies=PM.myProxy.get_proxy())
             if r.status_code == 200:
+                print("Success Proxy {}".format(PM.myProxy.get_proxy()))
                 return r
             else:
                 print("Invalid Proxy: {}".format(r.status_code))
                 PM.myProxy.invalid_proxy()
         except ProxyError:
+            print("Proxy Error: {}".format(PM.myProxy.get_proxy()))
             PM.myProxy.invalid_proxy()

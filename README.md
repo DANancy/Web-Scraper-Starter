@@ -16,7 +16,7 @@ This is a web scrap project, built on top of Python and Mongodb.
 │   ├── video_analysis         # dashboard built on Poltly & Dash
 │   └── api_call_sample.json   # bilibili danmaku api call sample
 ├── chemist_warehouse          # Project files for Chemist Warehouse
-│   ├── data_extractor         # spider for chemist warehose
+│   ├── data_extractor         # spider for chemist warehouse
 │   └── review_sample.json     # product review api call sample
 ├── images                     # Images for architecture
 ├── proxy                      # Customized Proxy Pacakge
@@ -33,11 +33,11 @@ This is a web scrap project, built on top of Python and Mongodb.
 ### Bilibili Project Setup 
 1.Clone the whole project
 ```
-git clone https://github.com/gitnancy/web-scrapter-starter.git
+$ git clone https://github.com/gitnancy/web-scrapter-starter.git
 ```
 2.Install Python Projects
 ```shell
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 3.Install [MongoDB](https://www.mongodb.com/download-center/enterprise?tck=docs_server) & [Robo 3T](https://robomongo.org/)
 
@@ -48,23 +48,29 @@ PASSWORD: setup user password for website login
 USERNAME: setup username for website login
 DBCONNECT: setup DB Connection
 ```
-5.Setup Proxy DB
-```shell
-python proxy\proxy_extractor.py
+5.Setup self-defined module -> bilibili/helper.py
 ```
-6.Run Extractor
-```shell
-python bilibili\bilibili_data_extractor.py
+$ import pandas
+$ packer_folder = pandas.__file__
+$ copy this module to the package folder
 ```
-7.Run Cleaner
+6.Setup Proxy DB
 ```shell
-python bilibili\bilibili_data_cleaner.py
+$ python proxy\proxy_extractor.py
 ```
-8.Run Dashboard
+7.Run Extractor
 ```shell
-python bilibili\video_analysis.py
+$ python bilibili\bilibili_data_extractor.py
 ```
-### Helpful Cheat Sheets & Tools
+8.Run Cleaner
+```shell
+$ python bilibili\bilibili_data_cleaner.py
+```
+9.Run Dashboard
+```shell
+$ python bilibili\video_analysis.py
+```
+### References
 * [XPATH](https://devhints.io/xpath)
 * [REGEX](https://www.debuggex.com/cheatsheet/regex/python)
 * [Seleinum Extension for Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)

@@ -8,16 +8,20 @@ from pathlib import Path
 
 # import libs
 from pymongo import MongoClient
+import random
+from fake_useragent import UserAgent
 
 # DB connection
 env_path = Path('..') / '.env'
 load_dotenv(dotenv_path=env_path)
 myClient = MongoClient(os.getenv("DBCONNECT"))
 table = myClient['ProxyDB']['active_proxy']
+ua = UserAgent()
 
 class ProxyManager:
     def __init__(self):
         self.lst = list(table.find())
+        random.shuffle(self.lst)
 
     def get_proxy(self):
         proxyInfo = self.lst[0]
